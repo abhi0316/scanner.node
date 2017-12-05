@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+  head
+    title= userpage
+    script(type='text/javascript').
+      
+body
+
+form(method="POST", action="/user/")
+ p PCB_T: <br>
+  input(type="number", name="pcb_t")
+ p PCB/pn: <br>
+  input(type="number", name="pcbpn")
+ p Prefix Length:<br>
+  input(type="number",name="prefix")
+ p First Data:<br>
+  input(type="number", name="fdata")
+ p Data-Len:<br>
+  input(type="number",name="datalen")
+  <br>
+  <textarea rows="50" cols="50">
+  </textarea>
+ p Barcode type<br>
+  select(name="btype") 
+     <option value="typeA" bname="typea">typeA</option>
+     <option value = "typeB" bname="typeb">typeB</option> 
+     <option value="typeC" bname="typec">typeC</option>
+     <option value = "typeD" bname="typed">typeD</option>
+     <option value="typeE" bname="typde">typeE</option>	
+ input(type="submit",value="update")    

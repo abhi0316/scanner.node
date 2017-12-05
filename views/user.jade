@@ -1,0 +1,39 @@
+doctype html
+html(lang="en")
+ head
+  title= userpage
+    
+  style(type='text/css').
+   .center-field { background-color: rgb(20, 40, 52); border-style: solid; border-color:white;
+    border-radius: 15px; position: absolute; margin-top: 5%; margin-left: 10vw; width: 80vw; height: 800px; 
+   }
+   p { padding-left:200px; color: white; font-size: 20px; }
+   input { margin-left: 25px; width: 30vw; height:50px; text-align: center; border-radius: 10px; font-size:20px; }
+   .error { position: absolute;  top: 60px; left:45vw; font-size: 20px; border-radius: 10px; width:30vw ; height: 56vh;}
+   h1 { position: absolute; color: white; top: 1px; left:45vw; }  
+   .update { float: right; margin-right:15px; }
+   .upload { float: left; }
+ body
+  div(class="center-field")
+   form(method="POST", action="/user/")
+    p PCB_T: 
+    input(type="number", name="pcb_t")
+    p PCB/pn: 
+    input(type="number", name="pcbpn")
+    p Prefix Length:
+    input(type="number",name="prefix")
+    p First Data:
+    input(type="number", name="fdata")
+    p Data-Len:
+    input(type="number", name="datalen")
+    <br>
+    p Error: 
+    input(type="file", name="error_file", class="upload")
+    p Barcode type<br>
+     select(name="btype") 
+        <option value="typeA" bname="typea">typeA</option>
+        <option value = "typeB" bname="typeb">typeB</option> 
+        <option value="typeC" bname="typec">typeC</option>
+        <option value = "typeD" bname="typed">typeD</option>
+        <option value="typeE" bname="typde">typeE</option>	
+    input(type="submit",value="update",class="update")    
