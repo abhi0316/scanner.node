@@ -6,7 +6,9 @@ html(lang="en")
       
 body
 
-form(method="POST", action="/error/")
- p ERROR DATA: <br>
-  input(type="number",name="errdata")
-  input(type="submit",value="update")    
+form(method="POST", action="/errorupdate" enctype="multipart/form-data")
+ p ERROR FILE: <br>
+ p Error:
+   input(type="file", name="error_file", class="upload")
+ input(type="submit", name = "errorupdata")
+   

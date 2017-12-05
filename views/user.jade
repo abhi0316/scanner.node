@@ -15,7 +15,9 @@ html(lang="en")
    .upload { float: left; }
  body
   div(class="center-field")
-   form(method="POST", action="/user/")
+   form(method="POST", action="/user/" )
+    p Name: 
+    input(type="text", name="name")
     p PCB_T: 
     input(type="number", name="pcb_t")
     p PCB/pn: 
@@ -26,14 +28,4 @@ html(lang="en")
     input(type="number", name="fdata")
     p Data-Len:
     input(type="number", name="datalen")
-    <br>
-    p Error: 
-    input(type="file", name="error_file", class="upload")
-    p Barcode type<br>
-     select(name="btype") 
-        <option value="typeA" bname="typea">typeA</option>
-        <option value = "typeB" bname="typeb">typeB</option> 
-        <option value="typeC" bname="typec">typeC</option>
-        <option value = "typeD" bname="typed">typeD</option>
-        <option value="typeE" bname="typde">typeE</option>	
     input(type="submit",value="update",class="update")    

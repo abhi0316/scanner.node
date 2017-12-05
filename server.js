@@ -1,12 +1,13 @@
 #! /usr/local/bin/node
-var net =require('net');
+var formidable =require('formidable');
 var unix= require('unix-dgram');
 var express = require('express');
 var app = express();
+var fs = require('fs');
+
 var server_address="/run/nest/socket_python_nest.Socket";
 var Array = require('node-array');
 const bodyParser = require('body-parser')
- 
 app.set('view engine', 'jade');
 
 app.get('/nest',function(req,res){
@@ -26,17 +27,35 @@ error_client(error_t);
 });
 
 
+app.post('/errorupdate',function(req,res){
+var form = new formidable.IncomingForm();
+form.parse(req, function (err, fields, files) {
+var oldpath = files.error_file.path;
+var newpath = '/home/nest/NEST/nest_python/config/'+files.error_file.name;
+fs.rename(oldpath, newpath, function (err) {
+if (err) throw err;
+      });
+res.render('error');
+ });
+
+});
+
+
+
+
 
 app.use(bodyParser.urlencoded({extended: false}))
+
 app.post('/user',function(req,res){
 
 var sock =[];
+sock.push(req.body.name);
 sock.push(req.body.pcb_t);
 sock.push(req.body.pcbpn);
 sock.push(req.body.prefix);
 sock.push(req.body.fdata);
 sock.push(req.body.datalen);
-res.render('response')
+res.render('response');
 console.log(sock);
 sock =sock.join();
 client_send(sock)
