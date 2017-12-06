@@ -11,7 +11,8 @@ const bodyParser = require('body-parser')
 app.set('view engine', 'jade');
 
 app.get('/nest',function(req,res){
-res.render('user');
+res.render('user', { questions: configarr });
+update_config()
 });
 app.get('/enter',function(req,res){
 res.render('error');
@@ -42,6 +43,36 @@ res.render('error');
 
 
 
+const sqlite3 = require('sqlite3').verbose()
+
+var db = new sqlite3.Database ('/home/nest/NEST/nest_python/Db/config.db',sqlite3.OPEN_READWRITE,(err) =>{
+
+                  if (err) {
+                        console.error(err.message)
+                        }
+                console.log('connected');
+  });
+var configarr=[];
+var config=[];
+db.serialize(() => {
+        db.each('select * from config ',(err,row) => {
+        if (err) {
+         console.error(err.message);
+                }
+		config.push(row.name);
+                configarr.push("/config?name="+row.name);
+		console.log(configarr);		
+        });
+console.log(configarr);
+});
+
+
+
+app.get('/config',function(req,res) {
+var sockconf = req.query.name;
+res.send("updated");
+client_send(sockconf)
+});
 
 
 app.use(bodyParser.urlencoded({extended: false}))
@@ -70,25 +101,22 @@ var message = Buffer(add)
 client.send(message,0,message.length,'/run/nest/socket_python_nest');
 return;
 }
-function error_client(error)
+
+function update_config()
 {
-console.log(error);
-var net =require('net');
-var PORT=8888;
-var HOST='127.0.0.1';
-var client =new net.Socket();
-client.connect(PORT,HOST);
-client.write(error);
-return;
+configarr=[];
+db.serialize(() => {
+        db.each('select * from config ',(err,row) => {
+        if (err) {
+         console.error(err.message);
+                }
+                config.push(row.name);
+                configarr.push("/config?name="+row.name);
+                console.log(configarr);
+        });
+console.log(configarr);
+});
 }
-
-
-
-
-
-
-
-
 
 app.listen(8080);
 

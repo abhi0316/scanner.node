@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+  head
+    title= userpage
+    script(type='text/javascript').
+      
+body
+h1
+ each question in questions
+  <a href= #{ question } style="color:black;" > #{ question } </a><br>
+   
