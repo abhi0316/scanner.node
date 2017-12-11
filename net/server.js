@@ -1,18 +1,15 @@
-const sqlite3 = require('sqlite3').verbose()
+var express    = require('express')
+var serveIndex = require('serve-index')
 
-var db = new sqlite3.Database ('/home/nest/NEST/nest_python/Db/config.db',sqlite3.OPEN_READWRITE,(err) =>{
-                  if (err) {
-			console.error(err.message)
-			}
-		console.log('connected');
-  });
+var app = express()
 
-db.serialize(() => {
-	db.each('select * from config ',(err,row) => {
-	if (err) {
-	 console.error(err.message);
-		}
-		console.log(row.name);
-	});
-});
+// Serve URLs like /ftp/thing as public/ftp/thing
+// The express.static serves the file contents
+// The serveIndex is this module serving the directory
+app.use('/ftp', express.static('helo'), serveIndex('helo', {'icons': true}))
 
+
+
+
+// Listen
+app.listen(8080)

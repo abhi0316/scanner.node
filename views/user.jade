@@ -1,38 +1,25 @@
 doctype html
 html(lang="en")
  head
-  title= userpage
-    
+  title= NEST
+  meta(http-equiv='refresh',content=3 )      
   style(type='text/css').
    .center-field { background-color: rgb(20, 40, 52); border-style: solid; border-color:white;
-    border-radius: 15px; position: absolute; margin-top: 5%; margin-left: 10vw; width: 80vw; height: 800px; 
+    border-radius: 15px; position: absolute; margin-top: 5%; margin-left: 10vw; width: 80vw; height: 200px;
+    color:white; text-align:center; 
    }
-   p { padding-left:11vw; color: white; font-size: 20px; }
-   input { margin-left: 25px; width: 30vw; height:50px; text-align: center; border-radius: 10px; font-size:20px; }
-   .error { position: absolute;  top: 60px; left:45vw; font-size: 20px; border-radius: 10px; width:30vw ; height: 56vh;}
-   .config { position: absolute; color: white; top: 1px; left:45vw; }  
-   .update { float: right; margin-right:15px; }
-   .upload { float: left; }
-   a {font-size: 30px; color: white; margin-left: 20px;text-decoration: none; }
+   a { float:right ; }
+   
  body
   div(class="center-field")
-   form(method="POST", action="/user/" )
-    p NAME: 
-    input(type="text", name="name")
-    p PCB TOTAL: 
-    input(type="number", name="pcb_t")
-    p PCB/PANNEL: 
-    input(type="number", name="pcbpn")
-    p PREFIX LENGTH:
-    input(type="number",name="prefix")
-    p FIRST DATA:
-    input(type="number", name="fdata")
-    p DATA LENGTH:
-    input(type="number", name="datalen")
-    input(type="submit",value="update",class="update")
-    div(class="config")
-     h1 Configs: <br>    
-      each question in questions
-       
-       <a href= #{ question }  > #{ question.substr(13) } </a> <br>
+    b STATUS :
+    b= name
+    br
+    b= response_text
+    form(method="POST", action="/stop")
+     input(type="submit",value="STOP & UPDATE:")
+  
+    
+
+
 

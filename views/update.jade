@@ -1,0 +1,67 @@
+doctype html
+html(lang="en")
+ head
+  title= NEST  
+  script(type='text/javascript').
+   var openFile= function(event) {
+   var input = event.target;
+   var reader = new FileReader();
+   reader.onload = function(){
+   var text = reader.result;
+   var text=reader.result.substring(0, 200).split('\n');
+   console.log(text)
+   document.getElementById("name").value=text[0];
+   document.getElementById("pcb_t").value=text[1];
+   document.getElementById("pcbpn").value=text[2];
+   document.getElementById("prefix").value=text[3];
+   document.getElementById("fdata").value=text[4];
+   document.getElementById("datalen").value=text[5];
+   };
+   reader.readAsText(input.files[0]);
+   
+   };
+   
+    
+  style(type='text/css').
+   .center-field { background-color: rgb(20, 40, 52); border-style: solid; border-color:white;
+    border-radius: 15px; position: absolute; margin-top: 5%; margin-left: 10vw; width: 80vw; height: 730px; 
+   }
+   p { margin-left: 25px; color: white; font-size: 17px; }
+   .userdata { margin-left: 25px; width: 30vw; height:50px; text-align: center; border-radius: 10px; font-size:20px; }
+   .fupdate { position: absolute; color: white; top: 6px; left:50vw; }  
+   .update { float: right; margin-right:15px;width: 30vw; height:50px; text-align: center; border-radius: 10px; font-size:20px; }
+   .upload { float: left; }
+   .configs { size : 5 }
+   button { margin-right : 10px } 
+ body
+    b STATUS:
+    b= name
+    br
+    b= response_text
+  
+  div(class="center-field")
+   form(method="post", action="/update" , enctype="multipart/form-data")
+    p NAME: 
+    input(type="text", name="name", id="name",autocomplete="off", class="userdata")
+    p PCB TOTAL: 
+    input(type="number", name="pcb_t" ,id="pcb_t", class="userdata",autocomplete="off" ,onkeypress='return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57', min="1")
+    p PCB/PANNEL: 
+    input(type="number", name="pcbpn",id="pcbpn", class="userdata", onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57", autocomplete="off" , min="1")
+    p PREFIX LENGTH:
+    input(type="number",name="prefix",id="prefix", class="userdata", onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57",autocomplete="off" , min="1")
+    p FIRST DATA:
+    input(type="number", name="fdata",id="fdata", class="userdata",onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57",autocomplete="off" , min="1")
+    p DATA LENGTH:
+    input(type="number", name="datalen",id="datalen", class="userdata",onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57",autocomplete="off", min="1")
+    div(class="fupdate")
+     h2 ERROR FILE:
+      input(type="file", name="error_file" , autocomplete="off")
+     h2 CONFIG FILE:
+      <input type="file", name="config_file",  autocomplete="off", onchange='openFile(event)'>
+
+     a(href="/ftp")
+       button(type="button") DOWNLOADCONF:
+    input(type="submit", value="update", class="update")
+
+
+
